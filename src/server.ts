@@ -2,6 +2,7 @@ import 'express-async-errors';
 import http from 'http';
 
 import { Application } from 'express';
+import { checkConnection } from '@notifications/elasticsearch';
 import { config } from '@notifications/config';
 import { healthRoutes } from '@notifications/routes';
 import { Logger } from 'winston';
@@ -21,7 +22,9 @@ export const start = (app: Application): void => {
 
 export const startQueues = async (): Promise<void> => {};
 
-const startElasticSearch = (): void => {};
+const startElasticSearch = (): void => {
+  checkConnection();
+};
 
 const startServer = (app: Application): void => {
   try {
