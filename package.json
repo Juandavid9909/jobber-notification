@@ -1,6 +1,6 @@
 {
   "name": "jobber-notification-service",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "> [!WARNING]\r > Se puede actualizar el paquete privado `@juandavid9909/jobber-shared` debido a mejoras y soluciones de bugs.",
   "main": "app.js",
   "scripts": {
@@ -11,7 +11,7 @@
   "author": "Juan David",
   "license": "ISC",
   "devDependencies": {
-    "@types/amqplib": "^0.10.7",
+    "@types/amqplib": "^0.10.5",
     "@types/email-templates": "^10.0.4",
     "@types/express": "^5.0.3",
     "@types/nodemailer": "^7.0.1",
@@ -28,7 +28,7 @@
   "dependencies": {
     "@elastic/elasticsearch": "^9.1.1",
     "@juandavid9909/jobber-utils": "^1.0.4",
-    "amqplib": "^0.10.9",
+    "amqplib": "^0.10.4",
     "dotenv": "^17.2.1",
     "ejs": "^3.1.10",
     "email-templates": "^12.0.3",
