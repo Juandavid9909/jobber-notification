@@ -1,20 +1,51 @@
 {
-  "name": "2-notification-service",
-  "version": "1.0.0",
+  "name": "jobber-notification-service",
+  "version": "0.1.0",
   "description": "> [!WARNING]\r > Se puede actualizar el paquete privado `@juandavid9909/jobber-shared` debido a mejoras y soluciones de bugs.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "pm2 start ./build/src/app.js -i 5 --attach --watch | pino-pretty -c",
+    "stop": "pm2 stop all",
+    "delete": "pm2 delete all",
+    "dev": "nodemon -r tsconfig-paths/register src/app.ts | pino-pretty -c",
+    "lint:check": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "prettier:check": "prettier --config .prettierrc.json --check 'src/**/*.{ts,json}'",
+    "prettier:fix": "prettier --config .prettierrc.json --write 'src/**/*.{ts,json}'",
+    "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json && ts-node tools/copyAssets.ts",
+    "test": "jest --coverage=true -w=1 --forceExit --detectOpenHandles --watchAll=false"
   },
   "keywords": [],
-  "author": "",
+  "author": "Juan David",
   "license": "ISC",
   "devDependencies": {
+    "@types/amqplib": "^0.10.7",
+    "@types/email-templates": "^10.0.4",
+    "@types/express": "^5.0.3",
+    "@types/nodemailer": "^7.0.1",
     "@typescript-eslint/eslint-plugin": "^8.41.0",
     "@typescript-eslint/parser": "^8.41.0",
     "eslint": "^9.34.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
-    "prettier": "^3.6.2"
+    "prettier": "^3.6.2",
+    "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.16",
+    "tsconfig-paths": "^4.2.0"
+  },
+  "dependencies": {
+    "@juandavid9909/jobber-utils": "^1.0.4",
+    "amqplib": "^0.10.9",
+    "dotenv": "^17.2.1",
+    "ejs": "^3.1.10",
+    "email-templates": "^12.0.3",
+    "express": "^4.21.2",
+    "express-async-errors": "^3.1.1",
+    "http-status-codes": "^2.3.0",
+    "nodemailer": "^7.0.5",
+    "pino-pretty": "^13.1.1",
+    "typescript": "^5.9.2",
+    "typescript-transform-paths": "^3.5.5",
+    "winston": "^3.17.0"
   }
 }
