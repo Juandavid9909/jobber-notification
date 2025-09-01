@@ -2,8 +2,10 @@ import 'express-async-errors';
 import http from 'http';
 
 import { Application } from 'express';
+import { Channel } from 'amqplib';
 import { checkConnection } from '@notifications/elasticsearch';
 import { config } from '@notifications/config';
+import { consumeAuthEmailMessages, consumeOrderEmailMessages } from '@notifications/queues/email.consumer';
 import { createConnection } from '@notifications/queues/connection';
 import { healthRoutes } from '@notifications/routes';
 import { Logger } from 'winston';
@@ -22,7 +24,15 @@ export const start = (app: Application): void => {
 };
 
 export const startQueues = async (): Promise<void> => {
-  createConnection();
+  const emailChannel = (await createConnection()) as Channel;
+
+  await consumeAuthEmailMessages(emailChannel);
+  await consumeOrderEmailMessages(emailChannel);
+  await emailChannel.assertExchange('jobber-email-notification', 'direct');
+
+  const message = JSON.stringify({ name: 'jobber', service: 'notification service' });
+  emailChannel.publish('jobber-email-notification', 'auth-email', Buffer.from(message));
+  emailChannel.publish('jobber-order-notification', 'order-email', Buffer.from(message));
 };
 
 const startElasticSearch = (): void => {
