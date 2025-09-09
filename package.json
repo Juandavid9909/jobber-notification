@@ -1,6 +1,6 @@
 {
   "name": "jobber-notification-service",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "> [!WARNING]\r > Se puede actualizar el paquete privado `@juandavid9909/jobber-shared` debido a mejoras y soluciones de bugs.",
   "main": "app.js",
   "scripts": {
